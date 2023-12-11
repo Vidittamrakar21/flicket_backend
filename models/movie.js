@@ -12,6 +12,7 @@ const movieschema = new Schema({
         city: String,
         showlocation: String,
         image: String,
+        bannerimg: String,
         date: {type: Date, default: Date.now}
 });
 
