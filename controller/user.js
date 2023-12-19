@@ -17,5 +17,42 @@ const createuser = async (req,res) =>{
 
    }
 
+   const changename = async (req,res) =>{
+      const {name,uid} = req.body;
 
-module.exports = {createuser}
+      const updatename = await User.findByIdAndUpdate({_id:uid},{name: name});
+      res.status(201).json({message: "Changes Saved !", data: updatename})
+   }
+
+   const changemobile = async (req,res) =>{
+      const {mobileno,uid} = req.body;
+
+      const updatename = await User.findByIdAndUpdate({_id:uid},{mobileno: mobileno});
+      res.status(201).json({message: "Changes Saved !", data: updatename})
+   }
+
+   const changecity = async (req,res) =>{
+      const {city,uid} = req.body;
+
+      const updatename = await User.findByIdAndUpdate({_id:uid},{city: city});
+      res.status(201).json({message: "Changes Saved !", data: updatename})
+   }
+
+   const changemail = async (req,res) =>{
+      const {email,uid} = req.body;
+
+      const updatename = await User.findByIdAndUpdate({_id:uid},{email: email});
+      res.status(201).json({message: "Changes Saved !", data: updatename})
+   }
+
+   const deleteacc = async (req,res) =>{
+      const {uid} = req.body;
+
+      const updatename = await User.findOneAndDelete(uid);
+      res.status(201).json({message: "Account Deleted Successfully !", data: updatename})
+   }
+
+   
+
+
+module.exports = {createuser,changename,changemobile, changecity, changemail, deleteacc}
