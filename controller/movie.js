@@ -1,5 +1,6 @@
 const Movie = require('../models/movie');
 const Status = require('../models/status');
+
 const getallmovie = async (req,res)=>{
     const data = await Movie.find();
     res.status(200).json(data);
@@ -32,5 +33,12 @@ const setstatus = async ( req, res)=> {
 }
 
 
+const setbanner = async (req,res) =>{
+    const {url,mid } = req.body;
+    const update = await Movie.findOneAndUpdate({_id: mid }, {bannerimg: url});
+    res.status(201).json({message: "Updated successfully", data: update});
 
-module.exports = {getallmovie ,postmovie ,setstatus}
+}
+
+
+module.exports = {getallmovie ,postmovie ,setstatus,setbanner}
