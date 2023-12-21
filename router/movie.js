@@ -7,9 +7,9 @@ router.route('/post').post(postmovie);
 router.route('/setstatus').post(setstatus);
 router.route('/setbanner').patch(setbanner);
 router.route('/search').get(searchmovie);
-router.route('/filter').get(filter);
+router.route('/filter/:data').get(filter);
 router.route('/rating').patch(rating);
 router.route('/specific').get(specific);
-router.route('/getone').get(onem);
+router.route('/getone/:id').get(onem);
 
 module.exports = router;

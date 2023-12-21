@@ -13,7 +13,7 @@ const specific = async (req,res)=>{
 }
 
 const onem = async (req,res)=>{
-    const {mid} = req.body;
+    const mid = req.params.id;
     const data = await Movie.findById(mid);
     res.status(200).json(data);
 }
@@ -81,10 +81,10 @@ const searchmovie = async(req,res) =>{
 
 const filter = async (req,res)=>{
     try {
-        const {type, city} = req.body;
+        const type = req.params.data;
         const searchTerm = type;
         const regex = new RegExp(searchTerm, 'i');
-        const data = await Movie.find({$and:[{type: regex},{city: city}]})
+        const data = await Movie.find({$and:[{type: regex},{city: "d"}]})
         res.status(200).json(data);
 
         
