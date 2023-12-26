@@ -54,7 +54,7 @@ const setbanner = async (req,res) =>{
 
 const searchmovie = async(req,res) =>{
     try {
-        const {searchval, city} = req.body;
+        const {searchval} = req.body;
         if(!searchval){
           res.status(200).json({message: "Search by any movie  name in the bar, to find it !"});
         }
@@ -63,8 +63,8 @@ const searchmovie = async(req,res) =>{
     
           const searchTerm = searchval;
           const regex = new RegExp(searchTerm, 'i');
-          const data = await Movie.findOne({$and: [{name: regex}, {city: city }]})
-          if(data.length === 0){
+          const data = await Movie.findOne({$and: [{name: regex}, {city: "d" }]})
+          if(!data){
             res.status(200).json({message: "empty"});
           }
           else{
