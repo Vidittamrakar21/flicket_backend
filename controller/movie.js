@@ -1,6 +1,8 @@
 const Movie = require('../models/movie');
 const Status = require('../models/status');
 
+
+
 const getallmovie = async (req,res)=>{
     const data = await Movie.find();
     res.status(200).json(data);
@@ -9,6 +11,12 @@ const getallmovie = async (req,res)=>{
 const specific = async (req,res)=>{
    
     const data = await Movie.find({$and:[{city: "d"},{showlocation: "d"}]});
+    res.status(200).json(data);
+}
+
+const theat = async (req,res)=>{
+    const {city, name} = req.body;
+    const data = await Movie.find({$and:[{city: city},{name: name}]});
     res.status(200).json(data);
 }
 
@@ -106,4 +114,4 @@ const rating = async (req,res) =>{
     }
 }
 
-module.exports = {getallmovie ,postmovie ,setstatus,setbanner,searchmovie,filter,rating,specific,onem}
+module.exports = {getallmovie ,postmovie ,setstatus,setbanner,searchmovie,filter,rating,specific,onem, theat}

@@ -1,18 +1,67 @@
 const User = require('../models/user');
+const jwt = require('jsonwebtoken');
+// const cookieparser = require('cookie-parser');
+require('dotenv').config();
+
+// app.use(cookieparser())
 
 const createuser = async (req,res) =>{
     const data = req.body;
-    const {email} = data
+    const {email,name} = data
     const existing  = await User.findOne({email});
+   
    
 
     if(existing){
 
-         res.status(200).json({message: "User already exists !"})
+
+      const token = jwt.sign(
+         {id: existing._id, email: existing.email ,name: existing.name , city: existing.city, },
+         process.env.SECKEY,
+        {
+          expiresIn: "3h"
+        }
+       )
+
+      
+
+          const options = {
+            expires: new Date(Date.now() + 3*24*60*60*1000),
+            httpOnly: true
+          }
+
+          res.status(200).cookie("flickettoken" , token, options).json({
+            success: true,
+            token,
+            existing,
+            message: "Signed in  Successfully !"
+          })
+
+
      }
      else{
         const newuser = await User.create(data);
-        res.status(201).json({message: "Signed in successfully !", data: newuser})
+        const token = jwt.sign(
+         {id: newuser._id, email: newuser.email ,name: newuser.name , city: newuser.city, },
+         process.env.SECKEY,
+        {
+          expiresIn: "3h"
+        }
+       )
+
+      
+
+          const options = {
+            expires: new Date(Date.now() + 3*24*60*60*1000),
+            httpOnly: true
+          }
+
+          res.status(200).cookie("flickettoken" , token, options).json({
+            success: true,
+            token,
+            newuser,
+            message: "Signed in  Successfully !"
+          })
      }
 
    }
