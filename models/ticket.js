@@ -13,7 +13,6 @@ const ticketschema = new Schema({
         showdate: String,
         seatno:{type: Array},
         movieid: String,  
-        bookingid: String,
         bookingdate: {type: Date, default: Date.now},
         validity: String
 

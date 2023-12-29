@@ -101,7 +101,41 @@ const createuser = async (req,res) =>{
       res.status(201).json({message: "Account Deleted Successfully !", data: updatename})
    }
 
+   const logout = async (req,res)=>{
+      try {
+
+         const {flickettoken} = req.cookies;
+     
+         if(flickettoken){
+     
+           
+         await res.clearCookie("flickettoken",{
+           httpOnly: true,
+           secure: true,
+           sameSite: 'none',
+         //   domain: 'blognes7.vercel.app',
+           path: '/',
+           expires: new Date(Date.now()),
+           
+           
+         });
+     
+         
+           
+           res.json({ message: 'Logged out successfully !' });
+         }
+     
+         else{
+           res.json({ message: 'Kindly, login first to continue.' });
+         }
+         
+       } catch (error) {
+         console.log(error);
+         res.status(400).json(error);
+       }
+   }
+
    
 
 
-module.exports = {createuser,changename,changemobile, changecity, changemail, deleteacc}
+module.exports = {createuser,changename,changemobile, changecity, changemail, deleteacc,logout}
