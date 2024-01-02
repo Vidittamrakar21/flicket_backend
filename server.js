@@ -6,6 +6,8 @@ const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const cookieparser = require('cookie-parser');
 require('dotenv').config();
+const Razorpay = require('razorpay')
+const crypto = require('crypto');
 const movie_router = require('./router/movie')
 const status_router = require('./router/status')
 const ticket_router = require('./router/ticket')
@@ -53,9 +55,48 @@ const auth = (req,res,next) => {
    
  }
 
+ const instance = new Razorpay({
+  key_id: process.env.RAZORPAYKEY,
+  key_secret: process.env.RAZORPAYSECRET,
+});
+
+
+const checkout = async (req,res) =>{
+  const options = {
+    amount: 1100,  // amount in the smallest currency unit
+    currency: "INR",
+   
+  };
+ const order = await instance.orders.create(options);
+ const key = process.env.RAZORPAYKEY
+ res.status(200).json({success: true, order , key})
+}
+
+const paymentverification = async (req,res) =>{
+  console.log(req.body)
+  const {order_id, razorpay_payment_id, razorpay_signature } = req.body;
+
+  const body =   order_id + "|" + razorpay_payment_id ;
+
+  const generated_signature = crypto.createHmac('sha256', process.env.RAZORPAYSECRET).update(body.toString()).digest('hex');
+
+  
+
+  if (generated_signature === razorpay_signature) {
+    // res.redirect('http://localhost:8080/success')
+    res.status(200).json({success: true,})
+  }
+
+  else{
+    res.status(200).json({success: false,})
+  }
+  
+}
  
 
 app.get('/check',auth);
+app.post('/api/payment/checkout',checkout);
+app.post('/api/payment/verify',paymentverification);
 app.use('/api/movie', movie_router);
 app.use('/api/status', status_router);
 app.use('/api/ticket',ticket_router);

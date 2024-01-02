@@ -3,6 +3,6 @@ const router = express.Router();
 const {maketicket,getticket} = require('../controller/ticket');
 
 router.route('/maketicket').post(maketicket);
-router.route('/getticket').get(getticket);
+router.route('/getticket').post(getticket);
 
 module.exports = router;

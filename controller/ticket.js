@@ -24,8 +24,8 @@ const maketicket = async (req,res) =>{
 
 const getticket = async (req,res) =>{
     try {
-
-        const data = await Ticket.find();
+        const {showlocation, city,showtime, showdate, moviename} = req.body;
+        const data = await Ticket.find({$and: [{showlocation: showlocation}, {city: city}, {showdate: showdate}, {showtime: showtime}, {moviename: moviename}]});
         res.status(200).json(data);
         
     } catch (error) {
