@@ -4,10 +4,22 @@ const User = require('../models/user')
 const maketicket = async (req,res) =>{
     try {
 
-        const data = req.body;
-        const {uid} = data;
+        const {showlocation,
+        city,
+        name,
+        mobileno,
+        showtime,
+        showdate,
+        seatno,
+        movieid,
+        moviename,
+        validity,
+        date ,
+        email,
+        uid} = req.body;
+    
 
-        const ticket = await Ticket.create(data);
+        const ticket = await Ticket.create({showlocation,city,name,mobileno,showdate,showtime,seatno,movieid,moviename,validity,date,email,uid});
         if(ticket){
             const update = await User.updateOne({_id: uid}, {$push: { bookings: ticket._id }});
             res.status(201).json(ticket);
@@ -33,4 +45,15 @@ const getticket = async (req,res) =>{
     }
 }
 
-module.exports = {maketicket,getticket}
+const getoneticket = async (req,res) =>{
+    try {
+        const {id} = req.body;
+        const data = await Ticket.findById(id);
+        res.status(200).json(data);
+        
+    } catch (error) {
+        res.json(error);
+    }
+}
+
+module.exports = {maketicket,getticket,getoneticket}

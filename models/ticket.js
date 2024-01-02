@@ -11,6 +11,7 @@ const ticketschema = new Schema({
         email: String,
         showtime: String,
         showdate: String,
+        date: String,
         seatno:{type: Array},
         movieid: String,  
         moviename: String,

@@ -73,23 +73,25 @@ const checkout = async (req,res) =>{
 }
 
 const paymentverification = async (req,res) =>{
-  console.log(req.body)
-  const {order_id, razorpay_payment_id, razorpay_signature } = req.body;
+  // console.log(req.body)
+  // const {order_id, razorpay_payment_id, razorpay_signature } = req.body;
 
-  const body =   order_id + "|" + razorpay_payment_id ;
+  // const body =   order_id + "|" + razorpay_payment_id ;
 
-  const generated_signature = crypto.createHmac('sha256', process.env.RAZORPAYSECRET).update(body.toString()).digest('hex');
+  // const generated_signature = crypto.createHmac('sha256', process.env.RAZORPAYSECRET).update(body.toString()).digest('hex');
 
   
+  res.redirect('/success') //change the url to only /success
+  res.status(200).json({success: true})
 
-  if (generated_signature === razorpay_signature) {
-    // res.redirect('http://localhost:8080/success')
-    res.status(200).json({success: true,})
-  }
+  // if (generated_signature === razorpay_signature) {
+  //   res.redirect('http://localhost:8080/success')
+  //   res.status(200).json({success: true,})
+  // }
 
-  else{
-    res.status(200).json({success: false,})
-  }
+  // else{
+  //   res.status(200).json({success: false,})
+  // }
   
 }
  
