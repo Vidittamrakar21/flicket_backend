@@ -135,7 +135,19 @@ const createuser = async (req,res) =>{
        }
    }
 
+   const oneuser = async (req,res)=>{
+    try {
+      const id = req.params.id
+      const data = await User.findById(id);
+      res.status(200).json(data)
+      
+    } catch (error) {
+      console.log(error);
+         res.status(400).json(error);
+    }
+   }
+
    
 
 
-module.exports = {createuser,changename,changemobile, changecity, changemail, deleteacc,logout}
+module.exports = {createuser,changename,changemobile,oneuser, changecity, changemail, deleteacc,logout}
