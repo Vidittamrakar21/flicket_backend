@@ -82,7 +82,7 @@ const paymentverification = async (req,res) =>{
 
   
   res.redirect('https://flicket.vercel.app/success') //change the url to only /success
-  res.status(200).json({success: true})
+  // res.status(200).json({success: true})
 
   // if (generated_signature === razorpay_signature) {
   //   res.redirect('http://localhost:8080/success')
