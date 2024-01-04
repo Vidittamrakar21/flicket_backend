@@ -1,0 +1,134 @@
+{
+    "version" : 2,
+
+    "builds": [
+        {
+            "src": "server.js",
+            "use": "@vercel/node"
+        },
+        {
+            "src": "build/**",
+            "use": "@vercel/static"
+        }
+
+    ],
+
+    "routes": [
+        
+       
+        {
+             "src": "/api",
+            "dest": "server.js"
+        },
+
+
+          {
+             "src": "/api/(.*)",
+            "dest": "server.js"
+        },
+
+        {
+            "src": "/",
+           "dest": "build/index.html"
+       },
+
+       {
+        "src": "build/images",
+       "dest": "build/images"
+   },
+
+   {
+    "src": "/check",
+   "dest": "server.js"
+},
+
+          {
+             "src": "/api/user/(.*)",
+            "dest": "server.js"
+        },
+
+          {
+             "src": "/api/ticket/(.*)",
+            "dest": "server.js"
+        },
+
+          {
+             "src": "/api/movie/(.*)",
+            "dest": "server.js"
+        },
+
+          {
+             "src": "/api/payment/checkout",
+            "dest": "server.js"
+        },
+
+          {
+             "src": "/api/payment/verify",
+            "dest": "server.js"
+        },
+
+         
+
+        
+
+        {
+             "src": "/movie",
+            "dest": "build/index.html"
+        },
+
+        {
+             "src": "/profile",
+            "dest": "build/index.html"
+        },
+
+        {
+             "src": "/moviedetail",
+            "dest": "build/index.html"
+        },
+
+        {
+             "src": "/cine",
+            "dest": "build/index.html"
+        },
+
+        {
+             "src": "/seat",
+            "dest": "build/index.html"
+        },
+
+        {
+             "src": "/order",
+            "dest": "build/index.html"
+        },
+        {
+             "src": "/search",
+            "dest": "build/index.html"
+        },
+        {
+             "src": "/moviedetail/(.*)",
+            "dest": "build/index.html"
+        },
+        {
+             "src": "/cine/(.*)",
+            "dest": "build/index.html"
+        },
+        {
+             "src": "/ticket/(.*)",
+            "dest": "build/index.html"
+        },
+        {
+             "src": "/success",
+            "dest": "build/index.html"
+        },
+        {
+             "src": "/ticket",
+            "dest": "build/index.html"
+        },
+        
+
+        {
+             "src": "/(.+)",
+            "dest": "build/$1"
+        }
+    ]
+}
