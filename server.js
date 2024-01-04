@@ -81,7 +81,7 @@ const paymentverification = async (req,res) =>{
   // const generated_signature = crypto.createHmac('sha256', process.env.RAZORPAYSECRET).update(body.toString()).digest('hex');
 
   
-  res.redirect('/success') //change the url to only /success
+  res.redirect('https://flicket.vercel.app/success') //change the url to only /success
   res.status(200).json({success: true})
 
   // if (generated_signature === razorpay_signature) {
